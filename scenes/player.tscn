@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cmxmrf243e57g"]
+
+[ext_resource type="Script" uid="uid://bdp3gynirx7wx" path="res://src/player.gd" id="1_3vyb7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mbtns"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mbtns"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3vyb7"]
+properties/0/path = NodePath(".:network_position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:network_rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" unique_id=271005657]
+script = ExtResource("1_3vyb7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1947135348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_mbtns")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=825477732]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_mbtns")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1941086571]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=9513192]
+replication_config = SubResource("SceneReplicationConfig_3vyb7")

@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://djyey33yw85pt"]
+
+[ext_resource type="Script" uid="uid://d2d11eh4jkg54" path="res://src/ui/main_menu.gd" id="1_sl1te"]
+
+[node name="MainMenu" type="Control" unique_id=1977289521]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sl1te")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=247571551]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer" unique_id=983809201]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer" unique_id=12527292]
+layout_mode = 2
+
+[node name="HostSteamButton" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer" unique_id=1872865533]
+layout_mode = 2
+text = "Host"
+
+[node name="SettingsButton" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer" unique_id=319525488]
+layout_mode = 2
+disabled = true
+text = "Settings
+"
+
+[node name="QuitButton" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer" unique_id=847545284]
+layout_mode = 2
+text = "Quit"
+
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer" unique_id=917174517]
+layout_mode = 2
+text = "Local"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer" unique_id=1718361968]
+layout_mode = 2
+
+[node name="HostLocalButton" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=583164583]
+layout_mode = 2
+text = "Host"
+
+[node name="ConnectLocalButton" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=565716969]
+layout_mode = 2
+text = "Connect"
+
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HostSteamButton" to="." method="_on_host_steam_button_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/HostLocalButton" to="." method="_on_host_local_button_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/ConnectLocalButton" to="." method="_on_connect_local_button_pressed"]
