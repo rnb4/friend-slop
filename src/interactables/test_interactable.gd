@@ -1,5 +1,18 @@
 extends Interactable
 
 
-func interact(interactor: Node) -> void:
-	print("Hello, %s" % interactor.name)
+@export var count: int = 0
+
+@onready var label: Label3D = %Label3D
+
+
+func _ready() -> void:
+	prompt = "increment"
+
+
+func _process(_delta: float) -> void:
+	label.text = str(count)
+
+
+func interact(_interactor_id: int) -> void:
+	count += 1

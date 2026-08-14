@@ -11,8 +11,11 @@ const INTERP_SPEED := 15.0
 @export var network_position: Vector3
 @export var network_rotation: Vector3
 
+var interact_subject: Interactable = null
 
 @onready var camera: Camera3D = %Camera3D
+@onready var camera_ray: RayCast3D = %CameraRay
+@onready var interact_prompt: Label = %InteractPrompt
 
 
 func _enter_tree() -> void:
@@ -20,6 +23,7 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	camera_ray.enabled = is_multiplayer_authority()
 	if is_multiplayer_authority():
 		camera.make_current()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -42,16 +46,34 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
+	if event.is_action_pressed("interact") and interact_subject:
+		interact_subject.try_interact()
+
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
 		_move(delta)
 		network_position = global_position
 		network_rotation = Vector3(camera.rotation.x, rotation.y, 0.0)
+		_update_interact_subject()
 	else:
 		global_position = global_position.lerp(network_position, delta * INTERP_SPEED)
 		rotation.y = lerp_angle(rotation.y, network_rotation.y, delta * INTERP_SPEED)
 		camera.rotation.x = lerp_angle(camera.rotation.x, network_rotation.x, delta * INTERP_SPEED)
+
+
+func _update_interact_subject() -> void:
+	var collider = camera_ray.get_collider()
+	if collider is Interactable:
+		interact_subject = collider
+	else:
+		interact_subject = null
+	
+	if interact_subject:
+		interact_prompt.show()
+		interact_prompt.text = "%s\nF" % [interact_subject.prompt]
+	else:
+		interact_prompt.hide()
 
 
 func _move(delta: float) -> void:

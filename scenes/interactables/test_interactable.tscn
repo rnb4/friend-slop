@@ -1,3 +1,35 @@
 [gd_scene format=3 uid="uid://c6bcyme2kuj3b"]
 
+[ext_resource type="Script" uid="uid://c01lw2egyuagy" path="res://src/interactables/test_interactable.gd" id="1_up7ck"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hu850"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_up7ck"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_up7ck"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_up7ck"]
+properties/0/path = NodePath(".:count")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
 [node name="TestInteractable" type="Area3D" unique_id=465860317]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_up7ck")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=172363079]
+shape = SubResource("BoxShape3D_hu850")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=644175098]
+mesh = SubResource("BoxMesh_up7ck")
+surface_material_override/0 = SubResource("StandardMaterial3D_up7ck")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1281918224]
+replication_config = SubResource("SceneReplicationConfig_up7ck")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1026287344]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+billboard = 1
+text = "0"

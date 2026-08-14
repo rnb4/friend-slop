@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://bxhv2hlijj6ke"]
 
+[ext_resource type="PackedScene" uid="uid://c6bcyme2kuj3b" path="res://scenes/interactables/test_interactable.tscn" id="1_hsmnc"]
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g2h5s"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -31,3 +33,6 @@ size = Vector3(50, 1, 50)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 use_collision = true
 size = Vector3(2, 3, 2)
+
+[node name="TestInteractable" parent="." unique_id=465860317 instance=ExtResource("1_hsmnc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09223938, 0.5000019, 4.931251)
