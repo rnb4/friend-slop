@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bdp3gynirx7wx" path="res://src/player.gd" id="1_3vyb7"]
 
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_3vyb7"]
+buffer_length = 0.1
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mbtns"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_mbtns"]
@@ -19,11 +22,16 @@ font_size = 32
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_3vyb7"]
-buffer_length = 0.1
-
 [node name="Player" type="CharacterBody3D" unique_id=271005657]
 script = ExtResource("1_3vyb7")
+
+[node name="VoicePlayer" type="AudioStreamPlayer3D" parent="." unique_id=1446129764]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+stream = SubResource("AudioStreamGenerator_3vyb7")
+unit_size = 5.0
+max_distance = 100.0
+bus = &"Voice"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1947135348]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -67,11 +75,3 @@ F"
 label_settings = SubResource("LabelSettings_3vyb7")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="VoicePlayer" type="AudioStreamPlayer3D" parent="." unique_id=1446129764]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-stream = SubResource("AudioStreamGenerator_3vyb7")
-unit_size = 5.0
-max_distance = 15.0
-bus = &"Voice"

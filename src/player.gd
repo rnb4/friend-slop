@@ -6,6 +6,7 @@ const JUMP_VELOCITY := 4.5
 const MOUSE_SENS := 0.003
 const PITCH_LIMIT := 1.4
 const INTERP_SPEED := 15.0
+const SAMPLE_RATE: int = 44100
 
 
 @export var network_position: Vector3
@@ -13,7 +14,6 @@ const INTERP_SPEED := 15.0
 
 var interact_subject: Interactable = null
 
-var _sample_rate: int = 44100
 var _voice_playback: AudioStreamGeneratorPlayback
 
 @onready var camera: Camera3D = %Camera3D
@@ -33,8 +33,7 @@ func _exit_tree() -> void:
 
 func _ready() -> void:
 	camera_ray.enabled = is_multiplayer_authority()
-	#_sample_rate = Steam.getVoiceOptimalSampleRate()
-	(voice_player.stream as AudioStreamGenerator).mix_rate = _sample_rate
+	(voice_player.stream as AudioStreamGenerator).mix_rate = SAMPLE_RATE
 	
 	if is_multiplayer_authority():
 		camera.make_current()
@@ -128,7 +127,7 @@ func _capture_voice() -> void:
 
 @rpc("authority", "call_remote", "unreliable", 2)
 func _receive_voice(buffer: PackedByteArray) -> void:
-	var decompressed: Dictionary = Steam.decompressVoice(buffer, _sample_rate)
+	var decompressed: Dictionary = Steam.decompressVoice(buffer, SAMPLE_RATE)
 	if decompressed.get("result") != Steam.VOICE_RESULT_OK and decompressed.get("size") == 0:
 		return
 	var frames_to_push: PackedVector2Array = PackedVector2Array()
