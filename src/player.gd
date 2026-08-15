@@ -40,9 +40,11 @@ func _ready() -> void:
 		camera.make_current()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		Steam.startVoiceRecording()
+		print("[voice] authority=%s rate=%d recording started" % [name, _sample_rate])
 	else:
 		voice_player.play()
 		_voice_playback = voice_player.get_stream_playback()
+		print("[voice] playback ready for %s, playback=%s" % [name, _voice_playback])
 
 
 
@@ -115,20 +117,26 @@ func _move(delta: float) -> void:
 
 func _capture_voice() -> void:
 	var available: Dictionary = Steam.getAvailableVoice()
-	if available.get("result") != Steam.VOICE_RESULT_OK or available.get("buffer", 0) == 0:
+	if Engine.get_physics_frames() % 60 == 0:
+		print("[voice] getAvailableVoice -> %s" % available)
+	if available.get("result") != Steam.VOICE_RESULT_OK or available.get("size", 0) == 0:
 		return
 	var voice: Dictionary = Steam.getVoice()
-	if voice.get("result") == Steam.VOICE_RESULT_OK and voice.get("written", 0) > 0:
+	if voice.get("result") == Steam.VOICE_RESULT_OK and voice.get("size", 0) > 0:
+		print("[voice] TX %d bytes" % voice["buffer"].size())
 		_receive_voice.rpc(voice["buffer"])
+
 
 @rpc("authority", "call_remote", "unreliable_ordered")
 func _receive_voice(buffer: PackedByteArray) -> void:
 	var decompressed: Dictionary = Steam.decompressVoice(buffer, _sample_rate)
+	print("[voice] RX %d bytes from %s -> decompress keys=%s result=%s" % [buffer.size(), name, decompressed.keys(), decompressed.get("result", "?")])
 	if decompressed.get("result") != Steam.VOICE_RESULT_OK:
 		return
 	var pcm: PackedByteArray = decompressed["uncompressed"]
 	@warning_ignore("integer_division") var frames := pcm.size() / 2
 	var free := _voice_playback.get_frames_available()
+	print("[voice] PLAY pcm=%d frames=%d free=%d playing=%s" % [pcm.size(), frames, free, voice_player.playing])
 	for i in mini(frames, free):
 		var s := pcm.decode_s16(i * 2) / 32768.0
 		_voice_playback.push_frame(Vector2(s, s))
