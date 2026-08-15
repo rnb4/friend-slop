@@ -13,7 +13,7 @@ const INTERP_SPEED := 15.0
 
 var interact_subject: Interactable = null
 
-var _sample_rate: int = 48000
+var _sample_rate: int = 44100
 var _voice_playback: AudioStreamGeneratorPlayback
 
 @onready var camera: Camera3D = %Camera3D
@@ -33,7 +33,7 @@ func _exit_tree() -> void:
 
 func _ready() -> void:
 	camera_ray.enabled = is_multiplayer_authority()
-	_sample_rate = Steam.getVoiceOptimalSampleRate()
+	#_sample_rate = Steam.getVoiceOptimalSampleRate()
 	(voice_player.stream as AudioStreamGenerator).mix_rate = _sample_rate
 	
 	if is_multiplayer_authority():
@@ -126,14 +126,20 @@ func _capture_voice() -> void:
 		_receive_voice.rpc(voice["buffer"])
 
 
-@rpc("authority", "call_remote", "unreliable_ordered")
+@rpc("authority", "call_remote", "unreliable", 2)
 func _receive_voice(buffer: PackedByteArray) -> void:
 	var decompressed: Dictionary = Steam.decompressVoice(buffer, _sample_rate)
-	if decompressed.get("result") != Steam.VOICE_RESULT_OK:
+	if decompressed.get("result") != Steam.VOICE_RESULT_OK and decompressed.get("size") == 0:
 		return
-	var pcm: PackedByteArray = decompressed["uncompressed"]
-	@warning_ignore("integer_division") var frames := pcm.size() / 2
-	var free := _voice_playback.get_frames_available()
-	for i in mini(frames, free):
-		var s := pcm.decode_s16(i * 2) / 32768.0
-		_voice_playback.push_frame(Vector2(s, s))
+	var frames_to_push: PackedVector2Array = PackedVector2Array()
+	frames_to_push.resize(decompressed["size"] / 2)
+	
+	for i in range(0, decompressed["size"], 2):
+		var sample_int: int = decompressed["uncompressed"].decode_s16(i)
+		var amplitude: float = float(sample_int) / 32768.0
+		@warning_ignore("integer_division") frames_to_push[i / 2] = Vector2(amplitude, amplitude)
+	
+	if _voice_playback.get_frames_available() >= frames_to_push.size():
+		_voice_playback.push_buffer(frames_to_push)
+	elif _voice_playback.get_frames_available() > 0:
+		_voice_playback.push_buffer(frames_to_push.slice(0, _voice_playback.get_frames_available()))
