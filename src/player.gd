@@ -20,6 +20,7 @@ var _voice_playback: AudioStreamGeneratorPlayback
 @onready var camera_ray: RayCast3D = %CameraRay
 @onready var interact_prompt: Label = %InteractPrompt
 @onready var voice_player: AudioStreamPlayer3D = %VoicePlayer
+@onready var _base_character: BaseCharacter = %BaseCharacter
 
 
 func _enter_tree() -> void:
@@ -109,9 +110,11 @@ func _move(delta: float) -> void:
 	if dir:
 		velocity.x = dir.x * SPEED
 		velocity.z = dir.z * SPEED
+		_base_character.running = true
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, SPEED)
 		velocity.z = move_toward(velocity.z, 0.0, SPEED)
+		_base_character.running = false
 	
 	move_and_slide()
 

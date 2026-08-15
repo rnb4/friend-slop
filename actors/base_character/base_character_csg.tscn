@@ -1,0 +1,230 @@
+[gd_scene format=3 uid="uid://d4mbwb3dxocgd"]
+
+[node name="Node3D" type="Node3D" unique_id=957430715]
+
+[node name="RightArm" type="CSGCylinder3D" parent="." unique_id=1542607276]
+transform = Transform3D(0.7308739, 0.6825126, 0, -0.6825126, 0.7308739, 0, 0, 0, 1, -0.4, 0.17556024, -0.023877561)
+radius = 0.05
+height = 0.35
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="RightArm" unique_id=1241262812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1920929e-07, -0.12495488, 0)
+radius = 0.05685995
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="RightArm" unique_id=1152239189]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1920929e-07, 0.16588813, 0)
+radius = 0.05685995
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="RightArm" unique_id=1099517653]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1920929e-07, -0.4991017, 0)
+radius = 0.09306881
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="RightArm" unique_id=1761364498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+radius = 0.05
+height = 0.35
+
+[node name="LeftArm" type="CSGCylinder3D" parent="." unique_id=1306461446]
+transform = Transform3D(0.7308738, -0.6825126, 0, 0.6825126, 0.7308738, 0, 0, 0, 1, 0.4, 0.17556024, -0.023877561)
+radius = 0.05
+height = 0.35
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="LeftArm" unique_id=1794930932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1920929e-07, -0.12495488, 0)
+radius = 0.05685995
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="LeftArm" unique_id=887005315]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1920929e-07, 0.16588813, 0)
+radius = 0.05685995
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="LeftArm" unique_id=1476121449]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1920929e-07, -0.4991017, 0)
+radius = 0.09306881
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="LeftArm" unique_id=2144159032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+radius = 0.05
+height = 0.35
+
+[node name="Torso" type="CSGCylinder3D" parent="." unique_id=1174494470]
+radius = 0.4
+height = 0.6
+
+[node name="Neck" type="CSGCylinder3D" parent="Torso" unique_id=504217774]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32727814, 0)
+radius = 0.048828125
+height = 0.08265686
+
+[node name="CSGSphere3D4" type="CSGSphere3D" parent="Torso/Neck" unique_id=834697278]
+transform = Transform3D(1, 0, 0, 0, 0.49027377, 0, 0, 0, 1, -1.1920929e-07, 0.022521853, 0)
+radius = 0.06617039
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="Torso/Neck" unique_id=1574213932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1920929e-07, -0.052161932, 0)
+radius = 0.06617039
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="Torso" unique_id=1254816837]
+transform = Transform3D(1.122, 0, 0, 0, 6.359, 0, 0, 0, 1, 0, 0.096223235, 0)
+operation = 2
+inner_radius = 0.25368857
+outer_radius = 0.46537656
+
+[node name="LeftLeg" type="CSGCylinder3D" parent="Torso" unique_id=122944716]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20000002, -0.91048515, 0)
+radius = 0.07910156
+height = 0.45
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Torso/LeftLeg" unique_id=1986780750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45433608, 0)
+radius = 0.07910156
+height = 0.5
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Torso/LeftLeg/CSGCylinder3D2" unique_id=665955040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2316435, 0)
+radius = 0.1
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="Torso/LeftLeg/CSGCylinder3D2" unique_id=5961128]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21039903, 0)
+radius = 0.1
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Torso/LeftLeg" unique_id=862368901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, -0.17499998, 0.15)
+size = Vector3(0.2, 0.1, 0.3)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Torso/LeftLeg/CSGBox3D2" unique_id=1647946226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.11829044)
+radius = 0.12251699
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Torso/LeftLeg/CSGBox3D2/CSGSphere3D" unique_id=822683098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, 0.099999994, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Torso/LeftLeg/CSGBox3D2/CSGSphere3D" unique_id=290918859]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, -0.10101898, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="Torso/LeftLeg/CSGBox3D2" unique_id=465490036]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05330608)
+radius = 0.12251699
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Torso/LeftLeg/CSGBox3D2/CSGSphere3D2" unique_id=134762984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, 0.099999994, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Torso/LeftLeg/CSGBox3D2/CSGSphere3D2" unique_id=929011502]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, -0.10101898, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="Torso/LeftLeg/CSGBox3D2" unique_id=1175845141]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.04127422)
+radius = 0.12251699
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Torso/LeftLeg/CSGBox3D2/CSGSphere3D3" unique_id=1573387292]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, 0.099999994, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Torso/LeftLeg/CSGBox3D2/CSGSphere3D3" unique_id=1669260002]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, -0.10101898, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGSphere3D4" type="CSGSphere3D" parent="Torso/LeftLeg/CSGBox3D2" unique_id=784367319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.14151138)
+radius = 0.12251699
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Torso/LeftLeg/CSGBox3D2/CSGSphere3D4" unique_id=375823987]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, 0.099999994, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Torso/LeftLeg/CSGBox3D2/CSGSphere3D4" unique_id=164879446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, -0.10101898, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="RightLeg" type="CSGCylinder3D" parent="Torso" unique_id=771208515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20000002, -0.91048515, 0)
+radius = 0.07910156
+height = 0.45
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Torso/RightLeg" unique_id=283247610]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45433608, 0)
+radius = 0.07910156
+height = 0.5
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Torso/RightLeg/CSGCylinder3D2" unique_id=31276035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2316435, 0)
+radius = 0.1
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="Torso/RightLeg/CSGCylinder3D2" unique_id=1449448938]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21039903, 0)
+radius = 0.1
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Torso/RightLeg" unique_id=1886411623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, -0.17499998, 0.15)
+size = Vector3(0.2, 0.1, 0.3)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Torso/RightLeg/CSGBox3D" unique_id=179592063]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.11829044)
+radius = 0.12251699
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Torso/RightLeg/CSGBox3D/CSGSphere3D" unique_id=908539543]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, 0.099999994, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Torso/RightLeg/CSGBox3D/CSGSphere3D" unique_id=1552826957]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, -0.10101898, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="Torso/RightLeg/CSGBox3D" unique_id=716356563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05330608)
+radius = 0.12251699
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Torso/RightLeg/CSGBox3D/CSGSphere3D2" unique_id=655262679]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, 0.099999994, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Torso/RightLeg/CSGBox3D/CSGSphere3D2" unique_id=117280335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, -0.10101898, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="Torso/RightLeg/CSGBox3D" unique_id=1449769171]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.04127422)
+radius = 0.12251699
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Torso/RightLeg/CSGBox3D/CSGSphere3D3" unique_id=754753836]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, 0.099999994, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Torso/RightLeg/CSGBox3D/CSGSphere3D3" unique_id=1562279111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, -0.10101898, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGSphere3D4" type="CSGSphere3D" parent="Torso/RightLeg/CSGBox3D" unique_id=1297451448]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.14151138)
+radius = 0.12251699
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Torso/RightLeg/CSGBox3D/CSGSphere3D4" unique_id=1303214194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, 0.099999994, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Torso/RightLeg/CSGBox3D/CSGSphere3D4" unique_id=1578179148]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005529791, -0.10101898, -0.065849036)
+operation = 2
+size = Vector3(0.2815674, 0.1, 0.40488282)
+
+[node name="Head" type="CSGSphere3D" parent="Torso" unique_id=2042997050]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6016474, 0)
+radius = 0.2946194

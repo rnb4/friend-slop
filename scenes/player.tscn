@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cmxmrf243e57g"]
 
 [ext_resource type="Script" uid="uid://bdp3gynirx7wx" path="res://src/player.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://dg2cqu1dv6cuj" path="res://actors/base_character/base_character.tscn" id="2_g2els"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_3vyb7"]
 buffer_length = 0.1
@@ -39,18 +40,8 @@ shape = SubResource("CapsuleShape3D_mbtns")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=825477732]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_mbtns")
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1941086571]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-
-[node name="CameraRay" type="RayCast3D" parent="Camera3D" unique_id=129582163]
-unique_name_in_owner = true
-target_position = Vector3(0, 0, -5)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=9513192]
 replication_config = SubResource("SceneReplicationConfig_3vyb7")
@@ -75,3 +66,22 @@ F"
 label_settings = SubResource("LabelSettings_3vyb7")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1941086571]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
+
+[node name="CameraRay" type="RayCast3D" parent="Camera3D" unique_id=129582163]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -5)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="BaseCharacter" parent="." unique_id=1580213481 instance=ExtResource("2_g2els")]
+unique_name_in_owner = true
+
+[node name="GeneralSkeleton" parent="BaseCharacter/rig" parent_id_path=PackedInt32Array(1580213481, 871690633) index="0" unique_id=1576034574]
+bones/0/position = Vector3(-0.005368762, 0.83786064, 0.014789764)
+
+[editable path="BaseCharacter"]
