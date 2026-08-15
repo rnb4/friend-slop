@@ -74,3 +74,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 stream = SubResource("AudioStreamGenerator_3vyb7")
 unit_size = 5.0
 max_distance = 15.0
+bus = &"Voice"
