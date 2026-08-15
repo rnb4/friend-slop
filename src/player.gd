@@ -13,20 +13,37 @@ const INTERP_SPEED := 15.0
 
 var interact_subject: Interactable = null
 
+var _sample_rate: int = 48000
+var _voice_playback: AudioStreamGeneratorPlayback
+
 @onready var camera: Camera3D = %Camera3D
 @onready var camera_ray: RayCast3D = %CameraRay
 @onready var interact_prompt: Label = %InteractPrompt
+@onready var voice_player: AudioStreamPlayer3D = %VoicePlayer
 
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 
+func _exit_tree() -> void:
+	if is_multiplayer_authority():
+		Steam.stopVoiceRecording()
+
+
 func _ready() -> void:
 	camera_ray.enabled = is_multiplayer_authority()
+	_sample_rate = Steam.getVoiceOptimalSampleRate()
+	(voice_player.stream as AudioStreamGenerator).mix_rate = _sample_rate
+	
 	if is_multiplayer_authority():
 		camera.make_current()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		Steam.startVoiceRecording()
+	else:
+		voice_player.play()
+		_voice_playback = voice_player.get_stream_playback()
+
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -56,6 +73,7 @@ func _physics_process(delta: float) -> void:
 		network_position = global_position
 		network_rotation = Vector3(camera.rotation.x, rotation.y, 0.0)
 		_update_interact_subject()
+		_capture_voice()
 	else:
 		global_position = global_position.lerp(network_position, delta * INTERP_SPEED)
 		rotation.y = lerp_angle(rotation.y, network_rotation.y, delta * INTERP_SPEED)
@@ -93,3 +111,24 @@ func _move(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0.0, SPEED)
 
 	move_and_slide()
+
+
+func _capture_voice() -> void:
+	var available: Dictionary = Steam.getAvailableVoice()
+	if available.get("result") != Steam.VOICE_RESULT_OK or available.get("buffer", 0) == 0:
+		return
+	var voice: Dictionary = Steam.getVoice()
+	if voice.get("result") == Steam.VOICE_RESULT_OK and voice.get("written", 0) > 0:
+		_receive_voice.rpc(voice["buffer"])
+
+@rpc("authority", "call_remote", "unreliable_ordered")
+func _receive_voice(buffer: PackedByteArray) -> void:
+	var decompressed: Dictionary = Steam.decompressVoice(buffer, _sample_rate)
+	if decompressed.get("result") != Steam.VOICE_RESULT_OK:
+		return
+	var pcm: PackedByteArray = decompressed["uncompressed"]
+	@warning_ignore("integer_division") var frames := pcm.size() / 2
+	var free := _voice_playback.get_frames_available()
+	for i in mini(frames, free):
+		var s := pcm.decode_s16(i * 2) / 32768.0
+		_voice_playback.push_frame(Vector2(s, s))
