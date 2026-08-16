@@ -6,10 +6,6 @@ extends Interactable
 @onready var label: Label3D = %Label3D
 
 
-func _ready() -> void:
-	prompt = "increment"
-
-
 func _process(_delta: float) -> void:
 	label.text = str(count)
 

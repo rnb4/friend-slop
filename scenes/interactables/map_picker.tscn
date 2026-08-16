@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cohk17css18u0"]
+
+[ext_resource type="Script" uid="uid://dhv3qa8r4tvii" path="res://src/interactable.gd" id="1_gk80g"]
+[ext_resource type="Script" uid="uid://bwnqf1i3ytea5" path="res://src/interactables/map_picker.gd" id="1_mrakd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mrakd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jh308"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mrakd"]
+properties/0/path = NodePath("Label:text")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="MapPicker" type="Node3D" unique_id=861702526]
+script = ExtResource("1_mrakd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1920256431]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_mrakd")
+
+[node name="NextMap" type="Area3D" parent="." unique_id=32306776]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_gk80g")
+prompt = "next map"
+metadata/_custom_type_script = "uid://dhv3qa8r4tvii"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NextMap" unique_id=642321613]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_jh308")
+
+[node name="Label" type="Label3D" parent="." unique_id=410611764]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+billboard = 1
+text = "random"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1008240635]
+replication_config = SubResource("SceneReplicationConfig_mrakd")
+
+[connection signal="interacted" from="NextMap" to="." method="_on_next_map_interacted"]

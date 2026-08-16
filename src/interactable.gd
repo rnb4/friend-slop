@@ -1,11 +1,14 @@
 class_name Interactable extends Area3D
 
 
-var prompt: String = "interact"
+signal interacted()
+
+
+@export var prompt: String = "interact"
 
 
 func interact(_interactor_id: int) -> void:
-	pass
+	interacted.emit()
 
 
 func try_interact() -> void:

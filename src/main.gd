@@ -2,17 +2,15 @@ extends Node3D
 
 
 const PLAYER_SCENE := preload("uid://cmxmrf243e57g")
-const MAP_01 := preload("uid://bxhv2hlijj6ke")
-const MAP_02 := preload("uid://bom2gj1j7jwyi")
-const MAP_03 := preload("uid://bla46881n647c")
-const MAPS := [MAP_01, MAP_02, MAP_03]
+const LOBBY_SCENE = preload("uid://bxi02m0xvioha")
 
 
-var map: Node3D = null
-
+@export var selected_map: PackedScene = null
 
 @onready var main_menu: Control = %MainMenu
 @onready var players: Node3D = %Players
+@onready var lobby: Node3D = %Lobby
+@onready var current_map: Node3D = lobby
 
 
 func _ready() -> void:
@@ -51,11 +49,11 @@ func _enter_game() -> void:
 
 
 func _spawn_map() -> void:
-	if map != null:
-		map.queue_free()
-		map = null
-	map = MAPS.pick_random().instantiate() as Node3D
-	add_child(map)
+	if current_map != null:
+		current_map.queue_free()
+		current_map = null
+	current_map = LOBBY_SCENE.instantiate() as Node3D
+	add_child(current_map)
 
 
 func _spawn_player(id: int) -> void:
@@ -65,3 +63,7 @@ func _spawn_player(id: int) -> void:
 	player.network_position = player.position
 	player.name = str(id)
 	players.add_child(player, true)
+
+
+func _on_map_picker_map_selected(selection: PackedScene) -> void:
+	selected_map = selection

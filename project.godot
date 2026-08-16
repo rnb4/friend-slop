@@ -36,6 +36,10 @@ project/assembly_name="FriendSlopSteam"
 
 enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+
 [input]
 
 forward={
