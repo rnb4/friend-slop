@@ -9,7 +9,8 @@ extends Node3D
 var running: bool = false:
 	set(value):
 		running = value
-		_animation_tree.running = value
+		if _animation_tree:
+			_animation_tree.running = value
 
 func _ready() -> void:
 	_skeleton.show_rest_only = false
