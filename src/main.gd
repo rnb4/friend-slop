@@ -1,23 +1,45 @@
-extends Node3D
+class_name Main extends Node3D
 
 
 const PLAYER_SCENE := preload("uid://cmxmrf243e57g")
 const LOBBY_SCENE = preload("uid://bxi02m0xvioha")
+const MAP_01 = preload("uid://bxhv2hlijj6ke")
+const MAP_02 = preload("uid://bom2gj1j7jwyi")
+const MAP_03 = preload("uid://bla46881n647c")
+const MAPS = [MAP_01, MAP_02, MAP_03]
 
+static var instance: Main
 
 @export var selected_map: PackedScene = null
 
 @onready var main_menu: Control = %MainMenu
 @onready var players: Node3D = %Players
-@onready var lobby: Node3D = %Lobby
-@onready var current_map: Node3D = lobby
+@onready var current_map: Node3D = %Lobby
+
 
 
 func _ready() -> void:
+	instance = self
 	NetworkManager.host_created.connect(_on_host_created)
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	var key_event := event as InputEventKey
+	if key_event.keycode == KEY_F1:
+		selected_map = LOBBY_SCENE
+		_swap_map()
+		selected_map = null
+
+
+static func select_map(selection: PackedScene) -> void:
+	instance.selected_map = selection
+
+
+static func start_game() -> void:
+	instance._swap_map()
 
 
 func _on_host_created() -> void:
@@ -47,14 +69,6 @@ func _enter_game() -> void:
 	main_menu.hide()
 
 
-func _spawn_map() -> void:
-	if current_map != null:
-		current_map.queue_free()
-		current_map = null
-	current_map = LOBBY_SCENE.instantiate() as Node3D
-	add_child(current_map)
-
-
 func _spawn_player(id: int) -> void:
 	var player := PLAYER_SCENE.instantiate() as Player
 	# TODO: implement spawn positions
@@ -64,5 +78,21 @@ func _spawn_player(id: int) -> void:
 	players.add_child(player, true)
 
 
-func _on_map_picker_map_selected(selection: PackedScene) -> void:
-	selected_map = selection
+func _place_players_at_spawn_points() -> void:
+	for node in players.get_children():
+		var player = node as Player
+		player.position = Vector3(randf_range(-20, 20), 0, randf_range(-20, 20))
+
+
+func _swap_map() -> void:
+	current_map.queue_free()
+	if selected_map == null:
+		selected_map = MAPS.pick_random()
+	var map := selected_map.instantiate() as Node3D
+	add_child(map, true)
+	current_map = map
+	_place_players_at_spawn_points()
+
+
+func _on_start_game_interacted() -> void:
+	_swap_map()

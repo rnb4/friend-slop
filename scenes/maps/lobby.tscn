@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c6bcyme2kuj3b" path="res://scenes/interactables/test_interactable.tscn" id="1_cdr7b"]
 [ext_resource type="PackedScene" uid="uid://cohk17css18u0" path="res://scenes/interactables/map_picker.tscn" id="2_y4554"]
+[ext_resource type="Script" uid="uid://dmvcv21nwi8l8" path="res://src/interactables/start_game.gd" id="3_wby8v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g2h5s"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -18,6 +19,10 @@ glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cdr7b"]
 albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jxohq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_001wt"]
 
 [node name="Lobby" type="Node3D" unique_id=1030336040]
 
@@ -44,3 +49,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09223938, 0.5000019, 4.931
 
 [node name="MapPicker" parent="." unique_id=861702526 instance=ExtResource("2_y4554")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="StartGame" type="Area3D" parent="." unique_id=1933955793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_wby8v")
+prompt = "start game"
+metadata/_custom_type_script = "uid://dhv3qa8r4tvii"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StartGame" unique_id=1776060810]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_jxohq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StartGame" unique_id=247509100]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_001wt")
+
+[node name="Label3D" type="Label3D" parent="StartGame" unique_id=641999571]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+billboard = 1
+text = "start game"

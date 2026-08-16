@@ -18,14 +18,10 @@ _spawnable_scenes = PackedStringArray("uid://cmxmrf243e57g")
 spawn_path = NodePath("../Players")
 
 [node name="MapSpawner" type="MultiplayerSpawner" parent="." unique_id=194840507]
-_spawnable_scenes = PackedStringArray("uid://bxhv2hlijj6ke", "uid://bom2gj1j7jwyi", "uid://bla46881n647c")
+_spawnable_scenes = PackedStringArray("uid://bxi02m0xvioha", "uid://bxhv2hlijj6ke", "uid://bom2gj1j7jwyi", "uid://bla46881n647c")
 spawn_path = NodePath("..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=178002139]
 
 [node name="MainMenu" parent="CanvasLayer" unique_id=1977289521 instance=ExtResource("2_0wfyh")]
 unique_name_in_owner = true
-
-[connection signal="map_selected" from="Lobby/MapPicker" to="." method="_on_map_picker_map_selected"]
-
-[editable path="Lobby"]
