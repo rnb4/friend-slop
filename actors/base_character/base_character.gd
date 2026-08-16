@@ -5,6 +5,7 @@ extends Node3D
 @onready var _head: MeshInstance3D = %Head
 @onready var _skeleton: Skeleton3D = %GeneralSkeleton
 
+@export
 var running: bool = false:
 	set(value):
 		running = value

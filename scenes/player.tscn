@@ -17,6 +17,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:network_rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("BaseCharacter:running")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_3vyb7"]
 font_size = 32
@@ -82,6 +85,6 @@ collide_with_bodies = false
 unique_name_in_owner = true
 
 [node name="GeneralSkeleton" parent="BaseCharacter/rig" parent_id_path=PackedInt32Array(1580213481, 871690633) index="0" unique_id=1576034574]
-bones/0/position = Vector3(-0.005368762, 0.83786064, 0.014789764)
+bones/0/position = Vector3(-0.03483455, 0.8376416, 0.014231231)
 
 [editable path="BaseCharacter"]
