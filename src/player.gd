@@ -135,9 +135,12 @@ func _receive_voice(buffer: PackedByteArray) -> void:
 		return
 	var frames_to_push: PackedVector2Array = PackedVector2Array()
 	frames_to_push.resize(decompressed["size"] / 2)
+	if !decompressed.has("uncompressed"):
+		return
+	var decompressed_buffer: PackedByteArray = decompressed["uncompressed"]
 	
 	for i in range(0, decompressed["size"], 2):
-		var sample_int: int = decompressed["uncompressed"].decode_s16(i)
+		var sample_int: int = decompressed_buffer.decode_s16(i)
 		var amplitude: float = float(sample_int) / 32768.0
 		@warning_ignore("integer_division") frames_to_push[i / 2] = Vector2(amplitude, amplitude)
 	
