@@ -21,7 +21,6 @@ func _ready() -> void:
 
 
 func _on_host_created() -> void:
-	_spawn_map()
 	_spawn_player(multiplayer.get_unique_id())
 	_enter_game()
 
