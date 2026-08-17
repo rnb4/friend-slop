@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bxhv2hlijj6ke"]
 
+[ext_resource type="Script" uid="uid://dn52pmsw724rq" path="res://src/map.gd" id="1_bepxa"]
 [ext_resource type="PackedScene" uid="uid://c6bcyme2kuj3b" path="res://scenes/interactables/test_interactable.tscn" id="1_hsmnc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g2h5s"]
@@ -15,7 +16,9 @@ sky = SubResource("Sky_hsmnc")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Map_01" type="Node3D" unique_id=1030336040]
+[node name="Map_01" type="Node3D" unique_id=1030336040 node_paths=PackedStringArray("spawn_points")]
+script = ExtResource("1_bepxa")
+spawn_points = NodePath("SpawnPoints")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=555726243]
 environment = SubResource("Environment_bepxa")
@@ -36,3 +39,14 @@ size = Vector3(2, 3, 2)
 
 [node name="TestInteractable" parent="." unique_id=465860317 instance=ExtResource("1_hsmnc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09223938, 0.5000019, 4.931251)
+
+[node name="SpawnPoints" type="Node3D" parent="." unique_id=648904236]
+
+[node name="Marker3D" type="Marker3D" parent="SpawnPoints" unique_id=364531130]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+
+[node name="Marker3D2" type="Marker3D" parent="SpawnPoints" unique_id=1383977866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 15)
+
+[node name="Marker3D3" type="Marker3D" parent="SpawnPoints" unique_id=1736447017]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 15)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bxi02m0xvioha"]
 
 [ext_resource type="PackedScene" uid="uid://c6bcyme2kuj3b" path="res://scenes/interactables/test_interactable.tscn" id="1_cdr7b"]
+[ext_resource type="Script" uid="uid://dn52pmsw724rq" path="res://src/map.gd" id="1_jxohq"]
 [ext_resource type="PackedScene" uid="uid://cohk17css18u0" path="res://scenes/interactables/map_picker.tscn" id="2_y4554"]
 [ext_resource type="Script" uid="uid://dmvcv21nwi8l8" path="res://src/interactables/start_game.gd" id="3_wby8v"]
 
@@ -25,6 +26,7 @@ albedo_color = Color(0, 1, 1, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_001wt"]
 
 [node name="Lobby" type="Node3D" unique_id=1030336040]
+script = ExtResource("1_jxohq")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=555726243]
 environment = SubResource("Environment_bepxa")

@@ -14,7 +14,7 @@ static var instance: Main
 
 @onready var main_menu: Control = %MainMenu
 @onready var players: Node3D = %Players
-@onready var current_map: Node3D = %Lobby
+@onready var current_map: Map = %Lobby
 
 
 
@@ -79,9 +79,16 @@ func _spawn_player(id: int) -> void:
 
 
 func _place_players_at_spawn_points() -> void:
-	for node in players.get_children():
-		var player = node as Player
-		player.position = Vector3(randf_range(-20, 20), 0, randf_range(-20, 20))
+	if current_map.spawn_points == null:
+		for node in players.get_children():
+			var player = node as Player
+			player.position = Vector3(randf_range(-20, 20), 0, randf_range(-20, 20))
+	else:
+		for node in players.get_children():
+			var player = node as Player
+			if player == null:
+				continue
+			player.position = current_map.spawn_points.get_children().pick_random().position
 
 
 func _swap_map() -> void:
