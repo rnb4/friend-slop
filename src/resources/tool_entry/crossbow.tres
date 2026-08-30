@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ToolEntry" format=3 uid="uid://2djelnwdt0mu"]
+
+[ext_resource type="Script" uid="uid://bb3f71xfqtlmq" path="res://src/resources/tool_entry/tool_entry.gd" id="1_inonc"]
+[ext_resource type="PackedScene" uid="uid://b172qsa5l5suf" path="res://actors/crossbow/crossbow_player.tscn" id="2_141u4"]
+
+[resource]
+script = ExtResource("1_inonc")
+name = "Crossbow"
+tool_scene = ExtResource("2_141u4")
+player_types = Array[int]([1])
+metadata/_custom_type_script = "uid://bb3f71xfqtlmq"

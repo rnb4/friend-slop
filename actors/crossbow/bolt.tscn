@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://bh04e27ib0g7u"]
+
+[ext_resource type="PackedScene" uid="uid://dytsgax875srp" path="res://assets/crossbow/bolt.glb" id="1_kgq06"]
+[ext_resource type="Texture2D" uid="uid://cxppcxtex1wpp" path="res://assets/crossbow/textures/DarkWalnutWoodLighterColor.jpg" id="2_msjwx"]
+[ext_resource type="Texture2D" uid="uid://drxv0p3ehrlie" path="res://assets/crossbow/textures/GreySteelColor.jpg" id="7_wm8wh"]
+[ext_resource type="Texture2D" uid="uid://ifxfxrmctfby" path="res://assets/crossbow/textures/GreySteelAmbientOcclusionMap.png" id="8_ucqoe"]
+[ext_resource type="Texture2D" uid="uid://f557v2575264" path="res://assets/crossbow/textures/GreySteelSpecularMap.png" id="9_bpoeq"]
+[ext_resource type="Texture2D" uid="uid://cnm1kfefbrrqq" path="res://assets/crossbow/textures/GreySteelNormalMap.png" id="10_eht2y"]
+[ext_resource type="Texture2D" uid="uid://cgpljflwh4f1d" path="res://assets/crossbow/textures/GreySteelDisplacementMap.png" id="11_b4u8j"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_msjwx"]
+load_path = "res://.godot/imported/DarkWalnutWoodAmbientOcclusionMap.png-5a995ae1f61c105e16e4acc90626c8af.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_n2lju"]
+load_path = "res://.godot/imported/DarkWalnutWoodDisplacementMap.png-bf57a35d1a40a05baf5083feaca538a5.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_y5dni"]
+load_path = "res://.godot/imported/DarkWalnutWoodSpecularMap.png-f32808d15cee2f38206f0518b607b258.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_okmix"]
+load_path = "res://.godot/imported/DarkWalnutWoodNormalMap.png-1d5a82ab7384ab715c49177ab869c5b5.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wm8wh"]
+albedo_texture = ExtResource("2_msjwx")
+metallic_texture = SubResource("CompressedTexture2D_y5dni")
+normal_enabled = true
+normal_texture = SubResource("CompressedTexture2D_okmix")
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = SubResource("CompressedTexture2D_msjwx")
+heightmap_scale = 0.1
+heightmap_texture = SubResource("CompressedTexture2D_n2lju")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d77rj"]
+albedo_texture = ExtResource("7_wm8wh")
+metallic = 1.0
+metallic_texture = ExtResource("9_bpoeq")
+roughness = 0.8
+roughness_texture = ExtResource("11_b4u8j")
+normal_enabled = true
+normal_texture = ExtResource("10_eht2y")
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource("8_ucqoe")
+
+[node name="bolt" unique_id=682155850 instance=ExtResource("1_kgq06")]
+
+[node name="Shaft" parent="." index="0" unique_id=920881947]
+surface_material_override/0 = SubResource("StandardMaterial3D_wm8wh")
+
+[node name="Head" parent="." index="1" unique_id=913276204]
+surface_material_override/0 = SubResource("StandardMaterial3D_d77rj")

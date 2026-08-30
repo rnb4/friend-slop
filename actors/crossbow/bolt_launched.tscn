@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b8bnl0mxst53s"]
+
+[ext_resource type="PackedScene" uid="uid://bh04e27ib0g7u" path="res://actors/crossbow/bolt.tscn" id="1_a1oxw"]
+[ext_resource type="Script" uid="uid://btqbbob7mywbl" path="res://src/projectile.gd" id="1_koe32"]
+
+[node name="BoltLaunched" type="Node3D" unique_id=1991182839]
+script = ExtResource("1_koe32")
+speed = 10.0
+drop = 50.0
+COLLISION_MASK = 1
+
+[node name="bolt" parent="." unique_id=682155850 instance=ExtResource("1_a1oxw")]

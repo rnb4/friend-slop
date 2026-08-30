@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b172qsa5l5suf"]
+
+[ext_resource type="Script" uid="uid://d3hccllk0unc8" path="res://actors/crossbow/crossbow_player.gd" id="1_3hjo0"]
+[ext_resource type="PackedScene" uid="uid://c1xljapxyc4o3" path="res://actors/crossbow/crossbow.tscn" id="1_7hkeu"]
+[ext_resource type="PackedScene" uid="uid://bh04e27ib0g7u" path="res://actors/crossbow/bolt.tscn" id="2_lu5ar"]
+
+[node name="CrossbowPlayer" type="Node3D" unique_id=2022137337]
+script = ExtResource("1_3hjo0")
+
+[node name="BoltSpawnPoint" type="Node3D" parent="." unique_id=851330048]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 8.829961e-22, 0, 1, 0, 8.829961e-22, 0, 1, -3.4039246e-08, 0.113185905, -0.8310673)
+
+[node name="crossbow1" parent="." unique_id=1204114752 instance=ExtResource("1_7hkeu")]
+unique_name_in_owner = true
+
+[node name="BoltAttachment" type="BoneAttachment3D" parent="." unique_id=1111010914]
+transform = Transform3D(-1, -8.742278e-08, -8.78601e-15, 0, 1.0050024e-07, -1, 8.742278e-08, -1, -1.0050024e-07, 1.9908946e-09, 0.099333666, 0.022773176)
+bone_name = "Rope"
+bone_idx = 9
+use_external_skeleton = true
+external_skeleton = NodePath("../crossbow1/Armature/Skeleton3D")
+
+[node name="bolt" parent="BoltAttachment" unique_id=682155850 instance=ExtResource("2_lu5ar")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.742278e-08, -8.742278e-08, 1.0050024e-07, -1, -8.78601e-15, -1, -1.0050024e-07, -3.938405e-08, 0.47327423, -0.007930428)
+
+[editable path="crossbow1"]

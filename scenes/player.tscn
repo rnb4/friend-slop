@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bdp3gynirx7wx" path="res://src/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://dg2cqu1dv6cuj" path="res://actors/base_character/base_character.tscn" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://b172qsa5l5suf" path="res://actors/crossbow/crossbow_player.tscn" id="2_qhqgy"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_3vyb7"]
 buffer_length = 0.1
@@ -11,13 +12,13 @@ buffer_length = 0.1
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_mbtns"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3vyb7"]
-properties/0/path = NodePath(".:network_position")
+properties/0/path = NodePath(".:network_rotation")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:network_rotation")
+properties/1/path = NodePath("BaseCharacter:running")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("BaseCharacter:running")
+properties/2/path = NodePath(".:network_position")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
@@ -28,6 +29,7 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody3D" unique_id=271005657]
 script = ExtResource("1_3vyb7")
+projectile_spawn_distance = 0.5
 
 [node name="VoicePlayer" type="AudioStreamPlayer3D" parent="." unique_id=1446129764]
 unique_name_in_owner = true
@@ -72,7 +74,8 @@ vertical_alignment = 1
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1941086571]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6168513, -0.32811525)
+fov = 100.0
 
 [node name="CameraRay" type="RayCast3D" parent="Camera3D" unique_id=129582163]
 unique_name_in_owner = true
@@ -81,10 +84,21 @@ collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
 
+[node name="CrossbowPlayer" parent="Camera3D" unique_id=2022137337 instance=ExtResource("2_qhqgy")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35875136, -0.27996254, -0.09322232)
+
 [node name="BaseCharacter" parent="." unique_id=1580213481 instance=ExtResource("2_g2els")]
 unique_name_in_owner = true
 
 [node name="GeneralSkeleton" parent="BaseCharacter/rig" parent_id_path=PackedInt32Array(1580213481, 871690633) index="0" unique_id=1576034574]
-bones/0/position = Vector3(-0.03483455, 0.8376416, 0.014231231)
+bones/0/position = Vector3(-0.11396099, 0.82552713, -0.0012487099)
+
+[node name="PlayerName" type="Label3D" parent="." unique_id=537701538]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2720714, 0)
+visible = false
+billboard = 1
+text = "Player"
 
 [editable path="BaseCharacter"]

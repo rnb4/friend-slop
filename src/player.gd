@@ -1,6 +1,5 @@
 class_name Player extends CharacterBody3D
 
-
 const SPEED := 5.0
 const JUMP_VELOCITY := 4.5
 const MOUSE_SENS := 0.003
@@ -8,7 +7,12 @@ const PITCH_LIMIT := 1.4
 const INTERP_SPEED := 15.0
 const SAMPLE_RATE: int = 44100
 
+@export
+var player_type: Enums.PlayerType = Enums.PlayerType.Hunter
 
+@export var projectile_spawn_distance: float = 2.0
+
+@export_group("Internal Networking", "network_")
 @export var network_position: Vector3
 @export var network_rotation: Vector3
 
@@ -21,16 +25,22 @@ var _voice_playback: AudioStreamGeneratorPlayback
 @onready var interact_prompt: Label = %InteractPrompt
 @onready var voice_player: AudioStreamPlayer3D = %VoicePlayer
 @onready var _base_character: BaseCharacter = %BaseCharacter
+@onready var _player_name_label: Label3D = %PlayerName
 
+@onready var crossbow = %CrossbowPlayer
+
+var health: float = 100.0
+
+var _ammo: int = 1
+var _max_ammo: int = 1
+var _reloading: bool = false
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
-
 func _exit_tree() -> void:
 	if is_multiplayer_authority():
 		Steam.stopVoiceRecording()
-
 
 func _ready() -> void:
 	camera_ray.enabled = is_multiplayer_authority()
@@ -43,8 +53,8 @@ func _ready() -> void:
 	else:
 		voice_player.play()
 		_voice_playback = voice_player.get_stream_playback()
-
-
+		_player_name_label.text = "Player %s" % self.name
+		_player_name_label.visible = true
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_multiplayer_authority():
@@ -65,7 +75,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("interact") and interact_subject:
 		interact_subject.try_interact()
-
+	
+	if event.is_action_pressed("shoot"):
+		_shoot()
+	
+	if event.is_action_pressed("reload"):
+		_reload()
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
@@ -78,11 +93,9 @@ func _physics_process(delta: float) -> void:
 		rotation.y = lerp_angle(rotation.y, network_rotation.y, delta * INTERP_SPEED)
 		camera.rotation.x = lerp_angle(camera.rotation.x, network_rotation.x, delta * INTERP_SPEED)
 
-
 func _process(_delta: float) -> void:
 	if is_multiplayer_authority():
 		_capture_voice()
-
 
 func _update_interact_subject() -> void:
 	var collider = camera_ray.get_collider()
@@ -96,7 +109,6 @@ func _update_interact_subject() -> void:
 		interact_prompt.text = "%s\nF" % [interact_subject.prompt]
 	else:
 		interact_prompt.hide()
-
 
 func _move(delta: float) -> void:
 	if not is_on_floor():
@@ -115,9 +127,7 @@ func _move(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0.0, SPEED)
 		velocity.z = move_toward(velocity.z, 0.0, SPEED)
 		_base_character.running = false
-	
 	move_and_slide()
-
 
 func _capture_voice() -> void:
 	var available: Dictionary = Steam.getAvailableVoice()
@@ -127,6 +137,11 @@ func _capture_voice() -> void:
 	if voice.get("result") == Steam.VOICE_RESULT_OK and voice.get("size", 0) > 0:
 		_receive_voice.rpc(voice["buffer"])
 
+@rpc("any_peer", "call_local", "unreliable")
+func hit(damage: float) -> void:
+	if is_multiplayer_authority():
+		health -= damage
+	_base_character.hit_anim()
 
 @rpc("authority", "call_remote", "unreliable", 2)
 func _receive_voice(buffer: PackedByteArray) -> void:
@@ -148,3 +163,27 @@ func _receive_voice(buffer: PackedByteArray) -> void:
 		_voice_playback.push_buffer(frames_to_push)
 	elif _voice_playback.get_frames_available() > 0:
 		_voice_playback.push_buffer(frames_to_push.slice(0, _voice_playback.get_frames_available()))
+
+func _shoot() -> void:
+	if player_type != Enums.PlayerType.Hunter:
+			return
+	if _ammo <= 0:
+		return
+	if _reloading:
+		return
+	_ammo -= 1
+	crossbow.shoot.rpc()
+	await crossbow.animation_finished
+	var projectile_transform: Transform3D = crossbow.global_transform
+	projectile_transform = projectile_transform.looking_at(camera.global_position - camera.global_transform.basis.z * projectile_spawn_distance * 100)
+	projectile_transform.origin = crossbow.get_projectile_spawn_location()
+	GameManager._request_create_projectile.rpc_id(1, self.name, projectile_transform)
+
+func _reload() -> void:
+	if player_type != Enums.PlayerType.Hunter:
+			return
+	_reloading = true
+	crossbow.reload.rpc()
+	await crossbow.animation_finished
+	_reloading = false
+	_ammo = _max_ammo
