@@ -23,6 +23,8 @@ buses/default_bus_layout="uid://dduv70mtsswx5"
 
 NetworkManager="*uid://b5whfjnuwtdro"
 GameManager="*uid://bhfdycidjxvdb"
+DebugManager="*uid://brvyigk26se4t"
+ProjectileManager="*uid://crrw1glcyb1di"
 
 [display]
 
@@ -41,6 +43,11 @@ enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg")
 [filesystem]
 
 import/blender/enabled=false
+
+[global_group]
+
+spawn_hunter=""
+spawn_vampire=""
 
 [input]
 

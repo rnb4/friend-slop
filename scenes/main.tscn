@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cbp3pp2hmf14b" path="res://src/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://djyey33yw85pt" path="res://scenes/ui/main_menu.tscn" id="2_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://bxi02m0xvioha" path="res://scenes/maps/lobby.tscn" id="3_sugp2"]
 
 [node name="Main" type="Node3D" unique_id=230665760]
 script = ExtResource("1_o5qli")
@@ -10,16 +9,8 @@ script = ExtResource("1_o5qli")
 [node name="Players" type="Node3D" parent="." unique_id=1169147825]
 unique_name_in_owner = true
 
-[node name="Lobby" parent="." unique_id=1030336040 instance=ExtResource("3_sugp2")]
+[node name="Maps" type="Node3D" parent="." unique_id=159087143]
 unique_name_in_owner = true
-
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=629009748]
-_spawnable_scenes = PackedStringArray("uid://cmxmrf243e57g")
-spawn_path = NodePath("../Players")
-
-[node name="MapSpawner" type="MultiplayerSpawner" parent="." unique_id=194840507]
-_spawnable_scenes = PackedStringArray("uid://bxi02m0xvioha", "uid://bxhv2hlijj6ke", "uid://bom2gj1j7jwyi", "uid://bla46881n647c")
-spawn_path = NodePath("..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=178002139]
 

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="MapsList" format=3 uid="uid://bmtgfp3tiiky6"]
+
+[ext_resource type="Script" uid="uid://ol26w82g7ath" path="res://src/resources/maps_list/maps_list.gd" id="1_8wkie"]
+[ext_resource type="Script" uid="uid://dph37p8h03mwa" path="res://src/resources/maps_list/maps_list_entry.gd" id="1_qitba"]
+
+[sub_resource type="Resource" id="Resource_lgssl"]
+script = ExtResource("1_qitba")
+map_path = "uid://bxhv2hlijj6ke"
+name = "Map 01"
+metadata/_custom_type_script = "uid://dph37p8h03mwa"
+
+[sub_resource type="Resource" id="Resource_33pdt"]
+script = ExtResource("1_qitba")
+map_path = "uid://bom2gj1j7jwyi"
+name = "Map 02"
+metadata/_custom_type_script = "uid://dph37p8h03mwa"
+
+[sub_resource type="Resource" id="Resource_tska7"]
+script = ExtResource("1_qitba")
+map_path = "uid://bla46881n647c"
+name = "Map 03"
+metadata/_custom_type_script = "uid://dph37p8h03mwa"
+
+[resource]
+script = ExtResource("1_8wkie")
+lobby = "uid://bxi02m0xvioha"
+maps = Array[ExtResource("1_qitba")]([SubResource("Resource_lgssl"), SubResource("Resource_33pdt"), SubResource("Resource_tska7")])
+metadata/_custom_type_script = "uid://ol26w82g7ath"

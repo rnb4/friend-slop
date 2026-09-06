@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bdp3gynirx7wx" path="res://src/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://dg2cqu1dv6cuj" path="res://actors/base_character/base_character.tscn" id="2_g2els"]
-[ext_resource type="PackedScene" uid="uid://b172qsa5l5suf" path="res://actors/crossbow/crossbow_player.tscn" id="2_qhqgy"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_3vyb7"]
 buffer_length = 0.1
@@ -29,7 +28,6 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody3D" unique_id=271005657]
 script = ExtResource("1_3vyb7")
-projectile_spawn_distance = 0.5
 
 [node name="VoicePlayer" type="AudioStreamPlayer3D" parent="." unique_id=1446129764]
 unique_name_in_owner = true
@@ -84,7 +82,7 @@ collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="CrossbowPlayer" parent="Camera3D" unique_id=2022137337 instance=ExtResource("2_qhqgy")]
+[node name="ToolContainer" type="Node3D" parent="Camera3D" unique_id=1349429821]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35875136, -0.27996254, -0.09322232)
 
@@ -92,7 +90,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35875136, -0.27996254, -0.0
 unique_name_in_owner = true
 
 [node name="GeneralSkeleton" parent="BaseCharacter/rig" parent_id_path=PackedInt32Array(1580213481, 871690633) index="0" unique_id=1576034574]
-bones/0/position = Vector3(-0.11396099, 0.82552713, -0.0012487099)
+bones/0/position = Vector3(0.036448438, 0.8308602, 0.023415219)
 
 [node name="PlayerName" type="Label3D" parent="." unique_id=537701538]
 unique_name_in_owner = true

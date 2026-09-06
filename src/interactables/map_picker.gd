@@ -1,19 +1,21 @@
 extends Node3D
 
-var maps := [null] + Main.MAPS
 var index := 0
 
 @onready var label: Label3D = %Label
 
 
 func _on_next_map_interacted() -> void:
-	index = (index + 1) % maps.size()
-	var label_text = str(index)
+	var maps := GameManager.MAIN_MAPS_RESOURCE.maps
+	if maps.is_empty():
+		return
+	index = (index + 1) % (maps.size() + 1)
+	var label_text := "random"
 	
 	if index == 0:
-		label_text = "random"
-		Main.select_map(null)
+		GameManager.select_map.rpc(-1)
 	else:
-		Main.select_map(Main.MAPS[index-1])
+		label_text = maps[index - 1].name
+		GameManager.select_map.rpc(index - 1)
 	
 	label.text = label_text

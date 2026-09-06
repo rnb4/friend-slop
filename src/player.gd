@@ -10,8 +10,6 @@ const SAMPLE_RATE: int = 44100
 @export
 var player_type: Enums.PlayerType = Enums.PlayerType.Hunter
 
-@export var projectile_spawn_distance: float = 2.0
-
 @export_group("Internal Networking", "network_")
 @export var network_position: Vector3
 @export var network_rotation: Vector3
@@ -27,13 +25,9 @@ var _voice_playback: AudioStreamGeneratorPlayback
 @onready var _base_character: BaseCharacter = %BaseCharacter
 @onready var _player_name_label: Label3D = %PlayerName
 
-@onready var crossbow = %CrossbowPlayer
+@onready var tool = %CrossbowPlayer
 
 var health: float = 100.0
-
-var _ammo: int = 1
-var _max_ammo: int = 1
-var _reloading: bool = false
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -77,10 +71,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		interact_subject.try_interact()
 	
 	if event.is_action_pressed("shoot"):
-		_shoot()
+		tool.use()
 	
 	if event.is_action_pressed("reload"):
-		_reload()
+		tool.reload()
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
@@ -94,7 +88,7 @@ func _physics_process(delta: float) -> void:
 		camera.rotation.x = lerp_angle(camera.rotation.x, network_rotation.x, delta * INTERP_SPEED)
 
 func _process(_delta: float) -> void:
-	if is_multiplayer_authority():
+	if is_multiplayer_authority() and NetworkManager.connected:
 		_capture_voice()
 
 func _update_interact_subject() -> void:
@@ -163,27 +157,3 @@ func _receive_voice(buffer: PackedByteArray) -> void:
 		_voice_playback.push_buffer(frames_to_push)
 	elif _voice_playback.get_frames_available() > 0:
 		_voice_playback.push_buffer(frames_to_push.slice(0, _voice_playback.get_frames_available()))
-
-func _shoot() -> void:
-	if player_type != Enums.PlayerType.Hunter:
-			return
-	if _ammo <= 0:
-		return
-	if _reloading:
-		return
-	_ammo -= 1
-	crossbow.shoot.rpc()
-	await crossbow.animation_finished
-	var projectile_transform: Transform3D = crossbow.global_transform
-	projectile_transform = projectile_transform.looking_at(camera.global_position - camera.global_transform.basis.z * projectile_spawn_distance * 100)
-	projectile_transform.origin = crossbow.get_projectile_spawn_location()
-	GameManager._request_create_projectile.rpc_id(1, self.name, projectile_transform)
-
-func _reload() -> void:
-	if player_type != Enums.PlayerType.Hunter:
-			return
-	_reloading = true
-	crossbow.reload.rpc()
-	await crossbow.animation_finished
-	_reloading = false
-	_ammo = _max_ammo
